@@ -3,12 +3,18 @@ const http = require("http");
 const WebSocket = require("ws");
 const mqtt = require("mqtt");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 app.use(cors());
 app.use(express.json());
+
+// Serve static index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 const PORT = 3001;
 
